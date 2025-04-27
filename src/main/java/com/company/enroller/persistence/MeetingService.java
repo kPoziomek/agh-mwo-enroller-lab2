@@ -22,4 +22,11 @@ public class MeetingService {
 		return query.list();
 	}
 
+	public Meeting getMeetingById(long id) {
+		String hql = "FROM Meeting WHERE id = :id";
+		Query query = this.session.createQuery(hql);
+		query.setParameter("id", id);
+		return (Meeting) query.uniqueResult();
+	}
+
 }

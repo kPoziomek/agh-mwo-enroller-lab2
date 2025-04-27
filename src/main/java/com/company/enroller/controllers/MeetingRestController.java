@@ -5,10 +5,7 @@ import com.company.enroller.persistence.MeetingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -31,5 +28,15 @@ public class MeetingRestController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<Meeting>(meeting, HttpStatus.OK);
+    }
+
+    @RequestMapping(value="", method = RequestMethod.POST)
+    public ResponseEntity<?> createMeeting(@RequestBody Meeting meeting) {
+        Meeting foundMeeting = meetingService.getMeetingById(meeting.getId());
+        if (foundMeeting != null) {
+            return new ResponseEntity("Unable to add meeting", HttpStatus.CONFLICT);
+        }
+        Meeting meeting1 = meetingService.createMeeting(meeting);
+        return new ResponseEntity<Meeting>(meeting1, HttpStatus.CREATED);
     }
 }

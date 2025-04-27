@@ -47,4 +47,16 @@ public class MeetingService {
 		tx.commit();
 		return null;
 	}
+
+	public Meeting updateMeetingById(Meeting meeting, long id) {
+		Transaction tx = session.beginTransaction();
+		Meeting updatedMeeting = getMeetingById(id);
+		updatedMeeting.setTitle(meeting.getTitle());
+		updatedMeeting.setDescription(meeting.getDescription());
+		updatedMeeting.setDate(meeting.getDate());
+		System.out.println(updatedMeeting);
+		session.update(updatedMeeting);
+		tx.commit();
+		return updatedMeeting;
+	}
 }

@@ -49,4 +49,15 @@ public class MeetingRestController {
         Meeting meeting1 = meetingService.removeMeetingById(id);
         return new ResponseEntity<Meeting>(meeting1, HttpStatus.OK);
     }
+
+    @RequestMapping(value="/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<?> updateMeetingById(@PathVariable("id") long id, @RequestBody Meeting meeting) {
+        Meeting foundMeeting = meetingService.getMeetingById(id);
+        System.out.println(foundMeeting);
+        if (foundMeeting == null) {
+            return new ResponseEntity<>("Unable to update meeting", HttpStatus.CONFLICT);
+        }
+        Meeting meeting1 = meetingService.updateMeetingById(meeting,id);
+        return new ResponseEntity<>(meeting1, HttpStatus.OK);
+    }
 }

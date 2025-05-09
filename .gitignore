@@ -7,3 +7,6 @@
 .iml
 /target/
 .DS_Store
+# Application Properties
+src/main/resources/application.properties
+src/main/resources/application-*.properties

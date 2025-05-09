@@ -43,7 +43,7 @@ public class ParticipantRestController {
 		if (foundParticipant != null) {
 			return new ResponseEntity("Unable to create. A participant with login " + participant.getLogin() + " already exist.", HttpStatus.CONFLICT);
 		}
-		String hashedPassword = passwordEncoder.encode(foundParticipant.getPassword());
+		String hashedPassword = passwordEncoder.encode(participant.getPassword());
 		participant.setPassword(hashedPassword);
 		Participant participant1 = participantService.registerParticipant(participant);
 		return new ResponseEntity<Participant>(participant1, HttpStatus.CREATED);

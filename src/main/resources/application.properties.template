@@ -1,0 +1,2 @@
+security.secret=${SECURITY_SECRET}
+security.issuer=${SECURITY_ISSUER}

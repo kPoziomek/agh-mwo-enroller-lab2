@@ -2,25 +2,22 @@ package com.company.enroller.persistence;
 
 import com.company.enroller.model.Meeting;
 import com.company.enroller.model.Participant;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
-import org.hibernate.query.Query;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 
 @Component("meetingService")
+@DependsOn("hibernateUtil")
 public class MeetingService {
-	private static final Logger log = LoggerFactory.getLogger(ParticipantService.class);
-
 
 	Session session;
 
 	public MeetingService() {
 		session = DatabaseConnector.getInstance().getSession();
-
 	}
 
 	public Collection<Meeting> getAll() {
@@ -29,67 +26,50 @@ public class MeetingService {
 		return query.list();
 	}
 
-	public Meeting getMeetingById(long id) {
-		String hql = "FROM Meeting WHERE id = :id";
-		Query query = this.session.createQuery(hql);
-		query.setParameter("id", id);
-		return (Meeting) query.uniqueResult();
+	public Meeting findById(long id) {
+		return this.session.get(Meeting.class, id);
 	}
 
-	public Meeting createMeeting(Meeting meeting) {
-		Transaction tx = session.beginTransaction();
-		session.save(meeting);
-		tx.commit();
-		return meeting;
-	}
-	public Meeting removeMeetingById(long id) {
-		Transaction tx = session.beginTransaction();
-		session.delete(getMeetingById(id));
-		tx.commit();
-		return null;
-	}
-
-	public Meeting updateMeetingById(Meeting meeting, long id) {
-		Transaction tx = session.beginTransaction();
-		Meeting updatedMeeting = getMeetingById(id);
-		updatedMeeting.setTitle(meeting.getTitle());
-		updatedMeeting.setDescription(meeting.getDescription());
-		updatedMeeting.setDate(meeting.getDate());
-		System.out.println(updatedMeeting);
-		session.update(updatedMeeting);
-		tx.commit();
-		return updatedMeeting;
-	}
-
-	public Meeting addParticipantToMeeting(Meeting meeting, Participant participant) {
-		Transaction tx = session.beginTransaction();
-		meeting.addParticipant(participant);
-		session.update(meeting);
-		tx.commit();
-		return meeting;
-	}
-
-	public Meeting removeParticipantFromMeeting(Meeting meeting, Participant participant) {
-		Transaction tx = session.beginTransaction();
-		meeting.removeParticipant(participant);
-		session.update(meeting);
-		tx.commit();
-		return meeting;
-	}
-
-	public Collection<Participant> getParticipantsFromMeeting(Meeting meeting) {
-        return meeting.getParticipants();
-
-	}
-
-	public Meeting removeParticipantsFromMeeting(long meetingId) {
-		Transaction tx = session.beginTransaction();
-		Meeting removedMeeting = getMeetingById(meetingId);
-		if(removedMeeting != null) {
-			removedMeeting.getParticipants().clear();
-			session.update(removedMeeting);
-			tx.commit();
+	public Collection<Meeting> findMeetings(String title, String description, Participant participant, String sortMode) {
+		String hql = "FROM Meeting as meeting WHERE title LIKE :title AND description LIKE :description ";
+		if (participant != null) {
+			hql += " AND :participant in elements(participants)";
 		}
-		return removedMeeting;
+		if (sortMode.equals("title")) {
+			hql += " ORDER BY title";
+		}
+		Query query = this.session.createQuery(hql);
+		query.setParameter("title", "%" + title + "%").setParameter("description", "%" + description + "%");
+		if (participant != null) {
+			query.setParameter("participant", participant);
+		}
+		return query.list();
 	}
+
+	public void delete(Meeting meeting) {
+		Transaction transaction = this.session.beginTransaction();
+		this.session.delete(meeting);
+		transaction.commit();
+	}
+
+	public void add(Meeting meeting) {
+		Transaction transaction = this.session.beginTransaction();
+		this.session.save(meeting);
+		transaction.commit();
+	}
+
+	public void update(Meeting meeting) {
+		Transaction transaction = this.session.beginTransaction();
+		this.session.merge(meeting);
+		transaction.commit();
+	}
+
+	public boolean alreadyExist(Meeting meeting) {
+		String hql = "FROM Meeting WHERE title=:title AND date=:date";
+		Query query = this.session.createQuery(hql);
+		Collection resultList = query.setParameter("title", meeting.getTitle()).setParameter("date", meeting.getDate())
+				.list();
+		return query.list().size() != 0;
+	}
+
 }

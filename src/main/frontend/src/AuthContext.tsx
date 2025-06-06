@@ -1,5 +1,4 @@
 import { createContext, useContext, useState, type ReactNode, useEffect } from 'react';
-import type {User} from '../types';
 
 interface AuthContextType {
   user: User | null;
@@ -9,6 +8,7 @@ interface AuthContextType {
   logout: () => void;
 }
 import axios from 'axios';
+import type {User} from "@/types/types.ts";
 
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -62,6 +62,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       const userToStore: User = {
         login: userData.login,
         password: '',
+        id: '',
+        email: '',
+        roles: []
       };
 
       localStorage.setItem('token', receivedToken);

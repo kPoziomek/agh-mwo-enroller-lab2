@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { ProtectedRoute } from '../components/ProtectedRoute';
-import { MeetingsPage } from '../components/meetings/MeetingsPage';
-import { MeetingDetail } from '../components/meetingDetails/MeetingDetail.tsx';
-import { NewMeetingForm } from '../components/meetings/NewMeetingForm';
-import { CreateUserForm } from '../components/CreateUserForm';
 import { HomeRoute } from './HomeRoute';
+import {CreateUserForm} from "../components/CreateUserForm.tsx";
+import {ProtectedRoute} from "../components/ProtectedRoute.tsx";
+import {MeetingsPage} from "../components/meetings/MeetingsPage.tsx";
+import {MeetingDetail} from "../components/meetingDetails/MeetingDetail.tsx";
+import {NewMeetingForm} from "../components/meetings/NewMeetingForm.tsx";
 
 export const AppRoutes = () => {
   return (

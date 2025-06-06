@@ -1,7 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
-import { LoginForm } from '../components/LoginForm';
-
+import {LoginForm} from "../components/LoginForm.tsx";
 export const HomeRoute = () => {
   const { isAuthenticated } = useAuth();
 

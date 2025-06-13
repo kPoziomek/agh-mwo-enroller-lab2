@@ -17,7 +17,7 @@ export const MeetingsPage = () => {
         const data = await getMeetings();
         setMeetings(data);
       } catch (err) {
-        setError(t('meetingsPage.error.fetchMeetings'));
+        setError(t('error.fetchMeetings'));
       } finally {
         setIsLoading(false);
       }

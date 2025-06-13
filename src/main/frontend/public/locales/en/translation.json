@@ -165,7 +165,7 @@
 }
 },
 "error": {
-"fetchMeetings": "Error while fetching meetings:",
+"fetchMeetings": "Error while fetching meetings",
 "fetchMeetingById": "Error while fetching meeting with ID {{id}}:",
 "registeringForMeeting": "Error while registering for meeting with ID {{id}}:",
 "deletingMeeting": "Error while deleting meeting with ID {{id}}:",

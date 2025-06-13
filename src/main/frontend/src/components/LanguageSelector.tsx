@@ -19,12 +19,14 @@ const LanguageSelector = () => {
 
     const handleLanguageChange = (e: ChangeEvent<HTMLSelectElement>) => {
         const selectedLanguage = e.target.value;
+        console.log(`Selected language: ${selectedLanguage}`);
         setLanguage(selectedLanguage);
         i18next.changeLanguage(selectedLanguage);
     };
 
     useEffect(() => {
         document.body.dir = i18n.dir();
+        console.log(`Language changed to: ${i18n.language}`);
     }, [i18n, i18n.language]);
 
     return (

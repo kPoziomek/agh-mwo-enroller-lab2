@@ -5,6 +5,8 @@ import {
     removeParticipantFromMeeting
 } from "@/services/meetingService.ts";
 import {useAuth} from "../../AuthContext.tsx";
+import toast from "react-hot-toast";
+import {useTranslation} from "react-i18next";
 interface MeetingDetailsActionsProps {
     isUserParticipant: boolean;
     meetingId: number | null;
@@ -19,7 +21,7 @@ const MeetingDetailsActions:FC<MeetingDetailsActionsProps> = ({
                                                               }) => {
     const { user } = useAuth();
 
-
+    const {t} = useTranslation();
     const handleJoinMeeting = async () => {
         if (!meetingId) return;
 
@@ -28,12 +30,12 @@ const MeetingDetailsActions:FC<MeetingDetailsActionsProps> = ({
             if (success) {
                 const updatedParticipants = await getMeetingParticipants(meetingId);
                 setParticipants(updatedParticipants);
-                alert('Zapisano na spotkanie');
+                toast(t('meetingDetails.meetingActions.toastJoinSuccess'));
             } else {
-                alert('Nie udało się zapisać na spotkanie');
+                toast(t('meetingDetails.meetingActions.toastJoinFailure'));
             }
         } catch (err) {
-            alert('Wystąpił błąd podczas zapisywania na spotkanie');
+            toast(t('meetingDetails.meetingActions.toastJoinError'));
         }
     };
 
@@ -42,7 +44,7 @@ const MeetingDetailsActions:FC<MeetingDetailsActionsProps> = ({
         if (!meetingId) return;
 
         const confirmRemove = window.confirm(
-            `Czy na pewno chcesz usunąć ${participantLogin} z tego spotkania?`
+            t('meetingDetails.meetingActions.confirmRemove', { participant: participantLogin })
         );
 
         if (!confirmRemove) return;
@@ -52,12 +54,12 @@ const MeetingDetailsActions:FC<MeetingDetailsActionsProps> = ({
             if (success) {
                 const updatedParticipants = await getMeetingParticipants(meetingId);
                 setParticipants(updatedParticipants);
-                alert('Usunięto uczestnika ze spotkania');
+                toast(t('meetingDetails.meetingActions.toastRemoveSuccess'));
             } else {
-                alert('Nie udało się usunąć uczestnika');
+                toast(t('meetingDetails.meetingActions.toastRemoveFailure'));
             }
         } catch (err) {
-            alert('Wystąpił błąd podczas usuwania uczestnika');
+            toast(t('meetingDetails.meetingActions.toastRemoveError'));
         }
     };
 
@@ -69,14 +71,14 @@ const MeetingDetailsActions:FC<MeetingDetailsActionsProps> = ({
                     onClick={() => handleRemoveParticipant(user?.login || '')}
                     className="button button-outline"
                 >
-                    ⚠️ Wypisz się ze spotkania
+                    {t("meetingDetails.meetingActions.unregister")}
                 </button>
             ) : (
                 <button
                     onClick={handleJoinMeeting}
                     className="button button-success"
                 >
-                    ✅ Zapisz się na spotkanie
+                    {t("meetingDetails.meetingActions.register")}
                 </button>
             )}
         </div>

@@ -1,0 +1,174 @@
+{
+"welcome": "Meeting Organizer",
+"unauthenticatedLayout": {
+"description": "Manage meetings and attendance the easy way",
+"registerButton": "Create account",
+"loginButton": "Log in",
+"footerText": "Join meetings, manage attendance, and organize events in one place"
+},
+"userPanel": {
+"loading": "Loading...",
+"loginAs": "Logged in as",
+"title": "User Panel",
+"profile": "Profile",
+"settings": "Settings",
+"logout": "Log out",
+"addMeeting": "Add meeting",
+"availableMeetings": "Available meetings",
+"noMeetings": "No available meetings",
+"register": "Register",
+"deleteMeeting": "Delete meeting",
+"toastRegisterSuccess": "Successfully registered for the meeting",
+"toastRegisterFailure": "Failed to register for the meeting",
+"toastRegisterError": "An error occurred while registering for the meeting",
+"toastDeleteSuccess": "Meeting has been deleted",
+"toastDeleteFailure": "Failed to delete the meeting",
+"toastDeleteError": "An error occurred while deleting the meeting"
+},
+"navigation": {
+"meetings": "Meetings",
+"newMeeting": "Add meeting",
+"logout": "Log out"
+},
+"loginForm": {
+"title": "Login",
+"userName": "Username",
+"userNamePlaceholder": "Enter username",
+"password": "Password",
+"passwordPlaceholder": "Enter password",
+"loginButton": "Log in",
+"loadingButton": "Logging in...",
+"registerLink": "Register",
+"register": "Don't have an account?",
+"error": {
+"errorEmptyFields": "Invalid username and password",
+"invalidCredentials": "Invalid username or password",
+"unknownError": "An error occurred during login. Please try again."
+}
+},
+"createForm": {
+"error": {
+"errorEmptyFields": "Username and password are required",
+"passwordMismatch": "Passwords must match",
+"passwordTooShort": "Password must be at least 3 characters",
+"userExists": "A user with this username already exists",
+"unknownError": "An error occurred while creating the account"
+},
+"toastSuccess": "Account created! You can now log in.",
+"toastFailure": "Failed to create account. Username may already be taken.",
+"title": "Create account",
+"login": "Username",
+"loginPlaceholder": "Enter username",
+"password": "Password",
+"passwordPlaceholder": "Enter password",
+"confirmPassword": "Confirm password",
+"confirmPasswordPlaceholder": "Confirm password",
+"createButton": "Create account",
+"loadingButton": "Creating account...",
+"loginLink": "Log in",
+"text": "Already have an account?"
+},
+"newMeetingForm": {
+"title": "Add new meeting",
+"cancel": "Cancel",
+"name": "Meeting name",
+"namePlaceholder": "Enter meeting name",
+"description": "Meeting description",
+"descriptionPlaceholder": "Describe the purpose, agenda, requirements...",
+"date": "Meeting date",
+"datePlaceholder": "Select meeting date",
+"time": "Meeting time",
+"timePlaceholder": "Select meeting time",
+"addButton": "Create meeting",
+"hint": "Hint",
+"hintText": "Add a detailed description so participants know what to expect",
+"loadingButton": "Adding meeting...",
+"error": {
+"errorEmptyFields": "All fields are required",
+"unknownError": "An error occurred while adding the meeting"
+},
+"toastSuccess": "Meeting created successfully!",
+"toastFailure": "Failed to add meeting. Please try again."
+},
+"meetingsPage": {
+"loading": "Loading meetings...",
+"error": {
+"fetchError": "Failed to fetch meetings list"
+}
+},
+"meetingsListAction": {
+"details": "Details",
+"register": "Register",
+"delete": "Delete",
+"toastRegisterSuccess": "You have been registered for the meeting",
+"toastRegisterFailure": "Failed to register for the meeting",
+"toastRegisterError": "An error occurred while registering for the meeting",
+"toastDeleteSuccess": "Meeting has been deleted",
+"toastDeleteFailure": "Failed to delete the meeting",
+"toastDeleteError": "An error occurred while deleting the meeting"
+},
+"meetingsEmptyList": {
+"title": "No available meetings",
+"description": "There are currently no meetings to display. You can add a new meeting or check back later for availability.",
+"addMeetingButton": "Add the first meeting"
+},
+"meetingsActions": {
+"title": "Meetings",
+"addMeetingButton": "Add meeting"
+},
+"meetingsCard": {
+"date": "Date",
+"organizer": "Organizer",
+"participants": "Participants",
+"you": "You"
+},
+"meetingDetails": {
+"emptyMeetingDetails": {
+"title": "Meeting not found",
+"description": "No details found for this meeting. It may have been deleted or you do not have access.",
+"backToMeetings": "Back to meetings list"
+},
+"loading": "Loading meeting details...",
+"participantsCount": "{{count}} participants",
+"noParticipants": "No participants in this meeting. Be the first to register!",
+"deleteParticipant": "remove",
+"participantUser": "user",
+"participantYou": "You",
+"loadingError": {
+"wrongMeetingId": "Invalid meeting ID",
+"fetchError": "Failed to fetch meeting details"
+},
+"meetingActions": {
+"register": "Register for meeting",
+"unregister": "Unregister from meeting",
+"toastJoinSuccess": "You have been registered for the meeting",
+"toastJoinFailure": "Failed to register for the meeting",
+"toastJoinError": "An error occurred while registering for the meeting",
+"toastConfirmUnregister": "Are you sure you want to remove {{participant}} from this meeting?",
+"toastRemoveSuccess": "Participant removed from meeting",
+"toastRemoveFailure": "Failed to remove participant",
+"toastRemoveError": "An error occurred while removing participant"
+},
+"meetingNavigation": {
+"deleteMeeting": "Delete meeting",
+"goBack": "Back to meetings",
+"confirmDelete": "Are you sure you want to delete this meeting? This action is irreversible.",
+"toastDeleteSuccess": "Meeting has been deleted",
+"toastDeleteFailure": "Failed to delete the meeting",
+"toastDeleteError": "An error occurred while deleting the meeting"
+},
+"meetingParticipants": {
+"title": "Participants",
+"noParticipants": "No participants in this meeting",
+"you": "You",
+"organizer": "Organizer"
+}
+},
+"error": {
+"fetchMeetings": "Error while fetching meetings:",
+"fetchMeetingById": "Error while fetching meeting with ID {{id}}:",
+"registeringForMeeting": "Error while registering for meeting with ID {{id}}:",
+"deletingMeeting": "Error while deleting meeting with ID {{id}}:",
+"creatingMeeting": "Error while creating meeting:"
+}
+}

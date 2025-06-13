@@ -1,8 +1,10 @@
-import { useEffect, useState } from 'react';
+import {useEffect, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
 import {deleteMeeting, getMeetings, registerForMeeting} from '../services/meetingService';
 import type {Meeting} from "@/types/types.ts";
+import toast from "react-hot-toast";
+import {useTranslation} from "react-i18next";
 
 
 
@@ -10,6 +12,7 @@ const UserPanel = () => {
     const [meetings, setMeetings] = useState<Meeting[]>([]);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState('');
+    const {t} = useTranslation()
 
     const { user, logout } = useAuth();
     const navigate = useNavigate();
@@ -43,12 +46,12 @@ const UserPanel = () => {
             if (success) {
                 const updatedMeetings = await getMeetings();
                 setMeetings(updatedMeetings);
-                alert('Zapisano na spotkanie');
+                toast(t("userPanel.toastRegisterSuccess"));
             } else {
-                alert('Nie udało się zapisać na spotkanie');
+                toast(t("userPanel.toastRegisterFailure"));
             }
         } catch (err) {
-            alert('Wystąpił błąd podczas zapisywania na spotkanie');
+            toast(t("userPanel.toastRegisterError"));
         }
     };
     const handleRemoveMeeting = async (meetingId: number) => {
@@ -57,38 +60,38 @@ const UserPanel = () => {
             if (success) {
                 const updatedMeetings = await getMeetings();
                 setMeetings(updatedMeetings);
-                alert('Usunięto spotkanie');
+                toast(t("userPanel.toastDeleteSuccess"));
             } else {
-                alert('Nie udało się usunąć spotkania');
+                toast(t("userPanel.toastDeleteFailure"));
             }
         }
         catch (err) {
-            alert('Wystąpił błąd podczas usuwania spotkania');
+            toast(t("userPanel.toastDeleteError"));
         }
     }
 
     if (isLoading) {
-        return <div>Ładowanie...</div>;
+        return <div>{t("userPanel.loading")}</div>;
     }
 
     return (
         <div className="user-panel">
             <div className="header">
-                <h2>Panel użytkownika</h2>
+                <h2>{t("userPanel.title")}</h2>
                 <div className="user-info">
-                    <span>Zalogowano jako: {user?.login}</span>
-                    <button onClick={handleLogout}>Wyloguj</button>
-                    <button onClick={addMeeting}>Dodaj spotkanie</button>
+                    <span>{t("userPanel.loginAs")} {user?.login}</span>
+                    <button onClick={handleLogout}>{t("userPanel.logout")}</button>
+                    <button onClick={addMeeting}>{t("userPanel.addMeeting")}</button>
                 </div>
             </div>
 
             {error && <p className="error">{error}</p>}
 
             <div className="meetings-list">
-                <h3>Dostępne spotkania</h3>
+                <h3>{t('userPanel.availableMeetings')}</h3>
 
                 {meetings.length === 0 ? (
-                    <p>Brak dostępnych spotkań</p>
+                    <p>{t("userPanel.noMeetings")}</p>
                 ) : (
                     <ul>
                         {meetings.map((meeting) => (
@@ -97,9 +100,9 @@ const UserPanel = () => {
                                 <p><strong>Data:</strong> {meeting.date}</p>
                                 <p>{meeting.description}</p>
                                 <button onClick={() => handleRegister(meeting.id)}>
-                                    Zapisz się
+                                    {t("userPanel.register")}
                                 </button>
-                                <button onClick={()=>handleRemoveMeeting(meeting.id)}>usuń spotkanie</button>
+                                <button onClick={()=>handleRemoveMeeting(meeting.id)}>{t("userPanel.deleteMeeting")}</button>
                             </li>
                         ))}
                     </ul>

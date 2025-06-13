@@ -1,6 +1,8 @@
 import  {type FC} from 'react';
 import {useNavigate} from "react-router-dom";
 import {deleteMeeting} from "@/services/meetingService.ts";
+import toast from "react-hot-toast";
+import {useTranslation} from "react-i18next";
 interface MeetingDetailsNavigationProps {
     isOwner: boolean;
     meetingId: number | null;
@@ -8,25 +10,25 @@ interface MeetingDetailsNavigationProps {
 
 const MeetingDetailsNavigation:FC<MeetingDetailsNavigationProps> = ({isOwner, meetingId}) => {
     const navigate = useNavigate();
-
+    const {t} = useTranslation();
     const handleDeleteMeeting = async () => {
         if (!meetingId) return;
 
         const confirmDelete = window.confirm(
-            'Czy na pewno chcesz usunąć to spotkanie? Ta akcja jest nieodwracalna.'
+            t('meetingDetails.meetingNavigation.confirmDelete')
         );
 
         if (!confirmDelete) return;
 
         try {
             await deleteMeeting(meetingId);
-            alert('Spotkanie zostało usunięte');
+            toast(t('meetingDetails.meetingNavigation.toastDeleteSuccess'));
             navigate('/meetings');
         } catch (err: any) {
             if (err.response?.status === 403) {
-                alert('Tylko twórca spotkania może je usunąć');
+                toast(t('meetingDetails.meetingNavigation.toastDeleteFailure'));
             } else {
-                alert('Wystąpił błąd podczas usuwania spotkania');
+                toast(t('meetingDetails.meetingNavigation.toastDeleteError'));
             }
         }
     };
@@ -39,7 +41,7 @@ const MeetingDetailsNavigation:FC<MeetingDetailsNavigationProps> = ({isOwner, me
                     onClick={() => navigate('/meetings')}
                     className="button button-outline"
                 >
-                    ← Powrót
+                    {t('meetingDetails.meetingNavigation.goBack')}
                 </button>
             </div>
             <div className="column column-33">
@@ -49,7 +51,7 @@ const MeetingDetailsNavigation:FC<MeetingDetailsNavigationProps> = ({isOwner, me
                             onClick={handleDeleteMeeting}
                             className="button button-danger"
                         >
-                            🗑️ Usuń spotkanie
+                            {t('meetingDetails.meetingNavigation.deleteMeeting')}
                         </button>
                     </div>
                 )}

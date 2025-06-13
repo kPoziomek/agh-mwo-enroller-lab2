@@ -1,13 +1,14 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import {useTranslation} from "react-i18next";
 
 export const LoginForm = () => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-
+    const {t}= useTranslation()
     const navigate = useNavigate();
     const { loginUser } = useAuth();
 
@@ -15,7 +16,7 @@ export const LoginForm = () => {
         e.preventDefault();
 
         if (!login || !password) {
-            setError('Wprowadź nazwę użytkownika i hasło');
+            setError(t('loginForm.error.errorEmptyFields'));
             return;
         }
 
@@ -28,11 +29,10 @@ export const LoginForm = () => {
             if (success) {
                 navigate('/meetings');
             } else {
-                setError('Nieprawidłowa nazwa użytkownika lub hasło');
+                setError(t('loginForm.error.invalidCredentials'));
             }
         } catch (err) {
-            console.error('Szczegóły błędu:', err);
-            setError('Wystąpił błąd podczas logowania. Spróbuj ponownie.');
+            setError(t('loginForm.error.unknownError'));
         } finally {
             setIsLoading(false);
         }
@@ -40,7 +40,7 @@ export const LoginForm = () => {
 
     return (
         <div className="card">
-            <h2 className="text-center mb-2">🔐 Logowanie</h2>
+            <h2 className="text-center mb-2">{t('loginForm.title')}</h2>
 
             {error && (
                 <div className="alert alert-error">
@@ -50,23 +50,23 @@ export const LoginForm = () => {
 
             <form onSubmit={handleSubmit}>
                 <fieldset disabled={isLoading}>
-                    <label htmlFor="username">Nazwa użytkownika</label>
+                    <label htmlFor="username">{t('loginForm.userName')}</label>
                     <input
                         type="text"
                         id="username"
                         value={login}
                         onChange={(e) => setLogin(e.target.value)}
-                        placeholder="Wprowadź login"
+                        placeholder={t('loginForm.userNamePlaceholder')}
                         required
                     />
 
-                    <label htmlFor="password">Hasło</label>
+                    <label htmlFor="password">{t('loginForm.password')}</label>
                     <input
                         type="password"
                         id="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Wprowadź hasło"
+                        placeholder={t('loginForm.passwordPlaceholder')}
                         required
                     />
 
@@ -74,15 +74,15 @@ export const LoginForm = () => {
                         type="submit"
                         className="button button-primary"
                     >
-                        {isLoading ? '⏳ Logowanie...' : '🔓 Zaloguj się'}
+                        {isLoading ? t('loginForm.loadingButton') : t('loginForm.loginButton')}
                     </button>
                 </fieldset>
             </form>
 
             <div className="text-center mt-1">
                 <p className="text-muted mb-0">
-                    Nie masz konta?{' '}
-                    <Link to="/register">Utwórz konto</Link>
+                    {t('loginForm.register')}{' '}
+                    <Link to="/register">{t("loginForm.registerLink")}</Link>
                 </p>
             </div>
         </div>

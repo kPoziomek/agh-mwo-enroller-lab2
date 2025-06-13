@@ -3,12 +3,15 @@ import {useNavigate} from "react-router-dom";
 import {useAuth} from "../../AuthContext.tsx";
 import {deleteMeeting, getMeetings, registerForMeeting} from "@/services/meetingService.ts";
 import type {Meeting} from "@/types/types.ts";
+import toast from "react-hot-toast";
+import {useTranslation} from "react-i18next";
 interface ActionsProps {
     meeting: Meeting;
     setMeetings: (meetings: Meeting[]) => void;
 }
 const MeetingsListActions:FC<ActionsProps> = ({meeting, setMeetings}) => {
     const { user } = useAuth();
+    const { t } = useTranslation();
 
     const navigate = useNavigate();
     const handleRegister = async (id: number) => {
@@ -18,12 +21,12 @@ const MeetingsListActions:FC<ActionsProps> = ({meeting, setMeetings}) => {
             if (success) {
                 const updatedMeetings = await getMeetings();
                 setMeetings(updatedMeetings);
-                alert('Zapisano na spotkanie');
+                toast(t('meetingsListActions.toastRegisterSuccess'));
             } else {
-                alert('Nie udało się zapisać na spotkanie');
+                toast(t('meetingsListActions.toastRegisterFailure'));
             }
         } catch (err) {
-            alert('Wystąpił błąd podczas zapisywania na spotkanie');
+            toast(t('meetingsListActions.toastRegisterError'));
         }
     };
 
@@ -32,12 +35,12 @@ const MeetingsListActions:FC<ActionsProps> = ({meeting, setMeetings}) => {
             await deleteMeeting(meetingId);
             const updatedMeetings = await getMeetings();
             setMeetings(updatedMeetings);
-            alert('Usunięto spotkanie');
+            toast(t('meetingsListActions.toastDeleteSuccess'));
         } catch (err: any) {
             if (err.response?.status === 403) {
-                alert('Tylko twórca spotkania może je usunąć');
+                toast(t('meetingsListActions.toastDeleteFailure'));
             } else {
-                alert('Wystąpił błąd podczas usuwania spotkania');
+                toast(t('meetingsListActions.toastDeleteError'));
             }
         }
     };
@@ -47,20 +50,20 @@ const MeetingsListActions:FC<ActionsProps> = ({meeting, setMeetings}) => {
                 onClick={() => navigate(`/meetings/${meeting.id}`)}
                 className="button button-info button-small"
             >
-                👥 Szczegóły
+                {t('meetingsListActions.details')}
             </button>
             <button
                 onClick={() => handleRegister(meeting.id)}
                 className="button button-success button-small"
             >
-                ✅ Zapisz się
+                {t('meetingsListActions.register')}
             </button>
             {meeting.createdBy === user?.login && (
                 <button
                     onClick={() => handleRemoveMeeting(meeting.id)}
                     className="button button-danger button-small"
                 >
-                    🗑️ Usuń
+                    {t('meetingsListActions.delete')}
                 </button>
             )}
         </div>

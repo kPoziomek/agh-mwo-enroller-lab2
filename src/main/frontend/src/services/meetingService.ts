@@ -1,12 +1,12 @@
 import api from './api';
 import type {Meeting} from "@/types/types.ts";
-
+import i18next from "i18next";
 export const getMeetings = async (): Promise<Meeting[]> => {
   try {
     const response = await api.get('/api/meetings');
     return response.data;
   } catch (error) {
-    console.error('Błąd podczas pobierania spotkań:', error);
+    console.error(i18next.t('error.fetchingMeetings'), error);
     throw error;
   }
 };
@@ -16,7 +16,7 @@ export const getMeetingById = async (id: number): Promise<Meeting> => {
     const response = await api.get(`/api/meetings/${id}`);
     return response.data;
   } catch (error) {
-    console.error(`Błąd podczas pobierania spotkania o ID ${id}:`, error);
+    console.error(i18next.t('error.fetchMeetingById', { id }), error);
     throw error;
   }
 };
@@ -28,7 +28,7 @@ export const registerForMeeting = async (id: number): Promise<boolean> => {
     });
     return true;
   } catch (error) {
-    console.error(`Błąd podczas zapisywania na spotkanie o ID ${id}:`, error);
+    console.error(i18next.t('error.registeringForMeeting', { id }), error);
     return false;
   }
 };
@@ -38,7 +38,7 @@ export const deleteMeeting = async (meetingId: number): Promise<boolean> => {
     await api.delete('/api/meetings/' + meetingId);
     return true;
   } catch (error: any) {
-    console.error(`Błąd podczas usuwania spotkania o ID ${meetingId}:`, error);
+    console.error(i18next.t('error.deletingMeeting', { id: meetingId }), error);
     throw error;
   }
 }
@@ -48,7 +48,7 @@ export const createMeeting = async (meeting: Omit<Meeting, 'id'>): Promise<Meeti
     const response = await api.post('/api/meetings', meeting);
     return response.data;
   } catch (error) {
-    console.error('Błąd podczas tworzenia spotkania:', error);
+    console.error(i18next.t('error.creatingMeeting'), error);
     return null;
   }
 };

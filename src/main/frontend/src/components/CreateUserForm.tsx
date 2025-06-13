@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { createUser } from '../services/userService';
+import toast from "react-hot-toast";
+import {useTranslation} from "react-i18next";
 
 export const CreateUserForm = () => {
     const [formData, setFormData] = useState({
@@ -10,7 +12,7 @@ export const CreateUserForm = () => {
     });
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-
+    const {t}= useTranslation();
     const navigate = useNavigate();
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,17 +28,17 @@ export const CreateUserForm = () => {
 
         // Walidacja
         if (!formData.login.trim() || !formData.password.trim()) {
-            setError('Login i hasło są wymagane');
+            setError(t('createForm.error.emptyFields'));
             return;
         }
 
         if (formData.password !== formData.confirmPassword) {
-            setError('Hasła muszą się zgadzać');
+            setError(t('createForm.error.passwordMismatch'));
             return;
         }
 
         if (formData.password.length < 3) {
-            setError('Hasło musi mieć co najmniej 3 znaki');
+            setError(t('createForm.error.passwordTooShort'));
             return;
         }
 
@@ -50,17 +52,17 @@ export const CreateUserForm = () => {
             });
 
             if (success) {
-                alert('Konto zostało utworzone! Możesz się teraz zalogować.');
+                toast(t('createForm.toastSuccess'));
                 navigate('/');
             } else {
-                setError('Nie udało się utworzyć konta. Login może być już zajęty.');
+                setError(t('createForm.toastFailure'));
             }
         } catch (err: any) {
             console.error('Registration error:', err);
             if (err.response?.status === 409) {
-                setError('Użytkownik o tym loginie już istnieje');
+                setError(t('createForm.error.userExists'));
             } else {
-                setError('Wystąpił błąd podczas tworzenia konta');
+                setError(t('createForm.error.unknownError'));
             }
         } finally {
             setIsLoading(false);
@@ -69,7 +71,7 @@ export const CreateUserForm = () => {
 
     return (
         <div className="card">
-            <h2 className="text-center mb-2">📝 Utwórz konto</h2>
+            <h2 className="text-center mb-2">{t("createForm.title")}</h2>
 
             {error && (
                 <div className="alert alert-error">
@@ -79,36 +81,38 @@ export const CreateUserForm = () => {
 
             <form onSubmit={handleSubmit}>
                 <fieldset disabled={isLoading}>
-                    <label htmlFor="login">Login</label>
+                    <label htmlFor="login">{t("createForm.login")}</label>
                     <input
                         type="text"
                         id="login"
                         name="login"
                         value={formData.login}
                         onChange={handleInputChange}
-                        placeholder="Wprowadź login"
+                        placeholder={t("createForm.loginPlaceholder")}
                         required
                     />
 
-                    <label htmlFor="password">Hasło</label>
+                    <label htmlFor="password">{t("createForm.password")}</label>
                     <input
                         type="password"
                         id="password"
                         name="password"
                         value={formData.password}
                         onChange={handleInputChange}
-                        placeholder="Wprowadź hasło"
+                        placeholder={t("createForm.passwordPlaceholder")}
                         required
                     />
 
-                    <label htmlFor="confirmPassword">Potwierdź hasło</label>
+                    <label htmlFor="confirmPassword">
+                        {t("createForm.confirmPassword")}
+                    </label>
                     <input
                         type="password"
                         id="confirmPassword"
                         name="confirmPassword"
                         value={formData.confirmPassword}
                         onChange={handleInputChange}
-                        placeholder="Powtórz hasło"
+                        placeholder={t("createForm.confirmPasswordPlaceholder")}
                         required
                     />
 
@@ -117,15 +121,15 @@ export const CreateUserForm = () => {
                         className="button button-primary"
                         disabled={isLoading}
                     >
-                        {isLoading ? '⏳ Tworzenie konta...' : '✅ Utwórz konto'}
+                        {isLoading ? t("createForm.loadingButton"): t("createForm.createButton")}
                     </button>
                 </fieldset>
             </form>
 
             <div className="text-center mt-1">
                 <p className="text-muted mb-0">
-                    Masz już konto?{' '}
-                    <Link to="/">Zaloguj się</Link>
+                    {t("createForm.text")}{' '}
+                    <Link to="/">{t('createForm.loginLink')}</Link>
                 </p>
             </div>
         </div>

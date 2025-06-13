@@ -3,12 +3,13 @@ import {  getMeetings } from '@/services/meetingService.ts';
 import {MeetingsList} from "./MeetingsList.tsx";
 import MeetingsActions from "./MeetingsActions.tsx";
 import type {Meeting} from "@/types/types.ts";
+import {useTranslation} from "react-i18next";
 
 export const MeetingsPage = () => {
   const [meetings, setMeetings] = useState<Meeting[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
-  
+  const  { t } = useTranslation();
 
   useEffect(() => {
     const fetchMeetings = async () => {
@@ -16,7 +17,7 @@ export const MeetingsPage = () => {
         const data = await getMeetings();
         setMeetings(data);
       } catch (err) {
-        setError('Nie udało się pobrać listy spotkań');
+        setError(t('meetingsPage.error.fetchMeetings'));
       } finally {
         setIsLoading(false);
       }
@@ -28,7 +29,9 @@ export const MeetingsPage = () => {
   if (isLoading) {
     return (
       <div className="text-center">
-        <h5>Ładowanie spotkań...</h5>
+        <h5>{
+            t('meetingsPage.loading')
+        }</h5>
       </div>
     );
   }

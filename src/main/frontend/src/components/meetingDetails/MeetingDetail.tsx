@@ -12,11 +12,12 @@ import MeetingDetailsActions from "./MeetingDetailsActions.tsx";
 import EmptyMeetingDetails from "./EmptyMeetingDetails.tsx";
 import MeetingDetailsError from "./MeetingDetailsError.tsx";
 import type {Meeting, Participant} from "@/types/types.ts";
+import {useTranslation} from "react-i18next";
 
 export const MeetingDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { user } = useAuth();
-  
+  const {t} = useTranslation();
   const [meeting, setMeeting] = useState<Meeting | null>(null);
   const [participants, setParticipants] = useState<Participant[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,7 +27,7 @@ export const MeetingDetail = () => {
 
   useEffect(() => {
     if (!meetingId) {
-      setError('Nieprawidłowe ID spotkania');
+      setError(t('meetingDetails.loadingError.wrongMeetingId'));
       setIsLoading(false);
       return;
     }
@@ -39,7 +40,7 @@ export const MeetingDetail = () => {
         
         setMeeting(meetingData);
       } catch (err) {
-        setError('Nie udało się pobrać danych spotkania');
+        setError(t('meetingDetails.loadingError.fetchError'));
       } finally {
         setIsLoading(false);
       }
@@ -54,7 +55,7 @@ export const MeetingDetail = () => {
   if (isLoading) {
     return (
       <div className="text-center">
-        <h5>⏳ Ładowanie szczegółów spotkania...</h5>
+        <h5>{t('meetingDetails.loading')}</h5>
       </div>
     );
   }

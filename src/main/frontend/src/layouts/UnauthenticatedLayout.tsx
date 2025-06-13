@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import type {ReactNode} from "react";
+import {useTranslation} from "react-i18next";
 
 interface UnauthenticatedLayoutProps {
   children: ReactNode;
@@ -7,13 +8,13 @@ interface UnauthenticatedLayoutProps {
 
 export const UnauthenticatedLayout = ({ children }: UnauthenticatedLayoutProps) => {
   const navigate = useNavigate();
-
+const {t}= useTranslation();
   return (
     <div className="container text-center">
       <header className="mb-3">
-        <h1 className="mb-1">📅 Meeting Organizer</h1>
+        <h1 className="mb-1">{t('welcome')}</h1>
         <p className="text-muted mb-2">
-          Zarządzaj spotkaniami i uczestnictwem w prosty sposób
+            {t('unauthenticatedLayout.description')}
         </p>
         
         <div className="mb-2">
@@ -21,13 +22,13 @@ export const UnauthenticatedLayout = ({ children }: UnauthenticatedLayoutProps) 
             className="button button-primary"
             onClick={() => navigate('/')}
           >
-            🔓 Zaloguj się
+              {t('unauthenticatedLayout.loginButton')}
           </button>
           <button 
             className="button button-outline"
             onClick={() => navigate('/register')}
           >
-            📝 Utwórz konto
+            {t('unauthenticatedLayout.registerButton')}
           </button>
         </div>
       </header>
@@ -38,7 +39,7 @@ export const UnauthenticatedLayout = ({ children }: UnauthenticatedLayoutProps) 
       
       <footer className="mt-3 text-muted">
         <p>
-          ✨ Dołącz do spotkań, zarządzaj uczestnictwem i organizuj wydarzenia w jednym miejscu
+            {t('unauthenticatedLayout.footerText')}
         </p>
       </footer>
     </div>

@@ -1,0 +1,176 @@
+{
+  "welcome": "Organizator spotkań",
+  "unauthenticatedLayout": {
+    "description":"Zarządzaj spotkaniami i uczestnictwem w prosty sposób",
+    "registerButton": "Utwórz konto",
+    "loginButton": "Zaloguj się",
+    "footerText": "Dołącz do spotkań, zarządzaj uczestnictwem i organizuj wydarzenia w jednym miejscu"
+  },
+  "userPanel": {
+    "loading": "Ładowanie...",
+    "loginAs": "Zalogowano jako",
+    "title": "Panel użytkownika",
+    "profile": "Profil",
+    "settings": "Ustawienia",
+    "logout": "Wyloguj",
+    "addMeeting": "Dodaj spotkanie",
+    "availableMeetings": "Dostępne spotkania",
+    "noMeetings": "Brak dostępnych spotkań",
+    "register": "Zapisz się",
+    "deleteMeeting": "Usuń spotkanie",
+    "toastRegisterSuccess": "Zapiano na spotkanie",
+    "toastRegisterFailure": "Nie udało się zapisać na spotkanie",
+    "toastRegisterError": "Wystąpił błąd podczas zapisywania na spotkanie",
+    "toastDeleteSuccess": "Spotkanie zostało usunięte",
+    "toastDeleteFailure": "Nie udało się usunąć spotkania",
+    "toastDeleteError": "Wystąpił błąd podczas usuwania spotkania"
+  },
+  "navigation": {
+    "meetings": "Spotkania",
+    "newMeeting": "Dodaj spotkanie",
+    "logout": "Wyloguj"
+  },
+  "loginForm": {
+    "title": "Logowanie",
+    "userName": "Nazwa użytkownika",
+    "userNamePlaceholder": "Wprowadź login",
+    "password": "Hasło",
+    "passwordPlaceholder": "Wprowadź hasło",
+    "loginButton": "Zaloguj się",
+    "loadingButton": "Logowanie...",
+    "registerLink": "Zarejestruj się",
+    "register": "Nie masz konta?",
+    "error": {
+      "errorEmptyFields": "Nieprawidłowa nazwa użytkownika i hasło",
+      "invalidCredentials": "Nieprawidłowa nazwa użytkownika lub hasło",
+      "unknownError": "Wystąpił błąd podczas logowania. Spróbuj ponownie."
+    }
+  },
+  "createForm": {
+    "error": {
+        "errorEmptyFields": "Login i hasło są wymagane",
+        "passwordMismatch": "Hasła muszą być takie same",
+      "passwordTooShort": "Hasło musi mieć co najmniej 3 znaków",
+      "userExists": "Użytkownik o tym loginie już istnieje",
+      "unknownError": "Wystąpił błąd podczas tworzenia konta"
+    },
+    "toastSuccess": "Konto zostało utworzone! Możesz się teraz zalogować.",
+    "toastFailure": "Nie udało się utworzyć konta. Login może być już zajęty.",
+    "title": "Utwórz konto",
+    "login": "Login",
+    "loginPlaceholder": "Wprowadź login",
+    "password": "Hasło",
+    "passwordPlaceholder": "Wprowadź hasło",
+    "confirmPassword": "Potwierdź hasło",
+    "confirmPasswordPlaceholder": "Potwierdź hasło",
+    "createButton": "Utwórz konto",
+    "loadingButton": "Tworzenie konta...",
+    "loginLink": "Zaloguj się",
+    "text": "Masz już konto?"
+  },
+  "newMeetingForm": {
+    "title": "Dodaj nowe spotkanie",
+    "cancel": "Anuluj",
+    "name": "Nazwa spotkania",
+    "namePlaceholder": "Wprowadź nazwę spotkania",
+    "description": "Opis spotkania",
+    "descriptionPlaceholder": "Opisz cel spotkania, agenda, wymagania...",
+    "date": "Data spotkania",
+    "datePlaceholder": "Wybierz datę spotkania",
+    "time": "Czas spotkania",
+    "timePlaceholder": "Wybierz czas spotkania",
+    "addButton": "Utwórz spotkanie",
+    "hint": "Wskazówka",
+    "hintText": "Dodaj szczegółowy opis, aby uczestnicy wiedzieli czego się spodziewać",
+    "loadingButton": "Dodawanie spotkania...",
+    "error": {
+      "errorEmptyFields": "Wszystkie pola są wymagane",
+      "unknownError": "Wystąpił błąd podczas dodawania spotkania"
+    },
+    "toastSuccess": "Spotkanie zostało utworzone pomyślnie!",
+    "toastFailure": "Nie udało się dodać spotkania. Spróbuj ponownie."
+  },
+  "meetingsPage": {
+    "loading": "Ładowanie spotkań...",
+    "error": {
+        "fetchError": "Nie udało się pobrać listy spotkań"
+    }
+  },
+  "meetingsListAction": {
+    "details": "Szczegóły",
+    "register": "Zapisz się",
+    "delete": "Usuń",
+    "toastRegisterSuccess": "Zostałeś zapisany na spotkanie",
+    "toastRegisterFailure": "Nie udało się zapisać na spotkanie",
+    "toastRegisterError": "Wystąpił błąd podczas zapisywania na spotkanie",
+    "toastDeleteSuccess": "Spotkanie zostało usunięte",
+    "toastDeleteFailure": "Nie udało się usunąć spotkania",
+    "toastDeleteError": "Wystąpił błąd podczas usuwania spotkania"
+  },
+  "meetingsEmptyList": {
+    "title": "Brak dostępnych spotkań",
+    "description": "Obecnie nie ma żadnych spotkań do wyświetlenia. Możesz dodać nowe spotkanie lub wrócić później, aby sprawdzić dostępność.",
+    "addMeetingButton": "Dodaj pierwsze spotkanie"
+  },
+  "meetingsActions": {
+    "title": "Spotkania",
+    "addMeetingButton": "Dodaj spotkanie"
+  },
+  "meetingsCard": {
+    "date": "Data",
+    "organizer": "Organizator",
+    "participants": "Uczestnicy",
+    "you": "Ty"
+  },
+  "meetingDetails": {
+    "emptyMeetingDetails": {
+        "title": "Spotkanie nie zostało znalezione",
+        "description": "Nie znaleziono szczegółów dla tego spotkania. Może zostało usunięte lub nie masz do niego dostępu.",
+      "backToMeetings": "Wróć do listy spotkań"
+    },
+    "loading": "Ładowanie szczegółów spotkania...",
+    "participantsCount": "{{count}} uczestników",
+    "noParticipants": "Brak uczestników w tym spotkaniu. Bądź pierwszym, który się zapisze!",
+    "deleteParticipant": "usuń",
+    "participantUser": "user",
+    "participantYou": "To Ty",
+    "loadingError": {
+      "wrongMeetingId": "Nieprawidłowy identyfikator spotkania",
+      "fetchError": "Nie udało się pobrać szczegółów spotkania"
+    },
+    "meetingActions": {
+      "register": "Zapisz się na spotkanie",
+      "unregister": "Wypisz się ze spotkania",
+      "toastJoinSuccess": "Zostałeś zapisany na spotkanie",
+        "toastJoinFailure": "Nie udało się zapisać na spotkanie",
+        "toastJoinError": "Wystąpił błąd podczas zapisywania na spotkanie",
+      "toastConfirmUnregister": "Czy na pewno chcesz usunąć {{participant}} z tego spotkania?",
+      "toastRemoveSuccess": "Usunięto uczestnika ze spotkania'",
+        "toastRemoveFailure": "Nie udało się usunąć uczestnika'",
+        "toastRemoveError": "Wystąpił błąd podczas usuwania uczestnika"
+    },
+    "meetingNavigation": {
+      "deleteMeeting": "Usuń spotkanie",
+      "goBack": "Wróć do spotkań",
+      "confirmDelete": "Czy na pewno chcesz usunąć to spotkanie? Ta akcja jest nieodwracalna.",
+        "toastDeleteSuccess": "Spotkanie zostało usunięte",
+        "toastDeleteFailure": "Nie udało się usunąć spotkania",
+        "toastDeleteError": "Wystąpił błąd podczas usuwania spotkania"
+    },
+    "meetingParticipants": {
+      "title": "Uczestnicy",
+      "noParticipants": "Brak uczestników w tym spotkaniu",
+      "you": "Ty",
+      "organizer": "Organizator"
+    }
+
+  },
+
+  "error": {
+    "fetchMeetings": "Błąd podczas pobierania spotkań:",
+    "fetchMeetingById": "Błąd podczas pobierania spotkania o ID  {{id}}:",
+    "registeringForMeeting": "Błąd podczas zapisywania na spotkanie o ID {{id}}:",
+    "deletingMeeting": "Błąd podczas usuwania spotkania o ID {{id}}:",
+    "creatingMeeting": "Błąd podczas tworzenia spotkania:",
+  }
+}

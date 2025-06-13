@@ -1,6 +1,8 @@
 import {useAuth} from "../../AuthContext.tsx";
-import type {FC} from "react";
+import {type FC, } from "react";
 import {getMeetingParticipants, removeParticipantFromMeeting} from "@/services/meetingService.ts";
+import toast from "react-hot-toast";
+import {useTranslation} from "react-i18next";
 
 interface MeetingDetailsParticipantsListProps {
     participants: { login: string }[];
@@ -8,11 +10,12 @@ interface MeetingDetailsParticipantsListProps {
     setParticipants: (participants: { login: string }[]) => void;
 }
 const MeetingDetailsParticipantsList:FC<MeetingDetailsParticipantsListProps> = ({participants,meetingId, setParticipants}) => {
+   const {t} =useTranslation()
     const handleRemoveParticipant = async (participantLogin: string) => {
         if (!meetingId) return;
 
         const confirmRemove = window.confirm(
-            `Czy na pewno chcesz usunąć ${participantLogin} z tego spotkania?`
+            t('meetingDetails.meetingActions.toastConfirmUnregister', {participant: participantLogin})
         );
 
         if (!confirmRemove) return;
@@ -22,12 +25,13 @@ const MeetingDetailsParticipantsList:FC<MeetingDetailsParticipantsListProps> = (
             if (success) {
                 const updatedParticipants = await getMeetingParticipants(meetingId);
                 setParticipants(updatedParticipants);
-                alert('Usunięto uczestnika ze spotkania');
+                toast(t('meetingDetails.meetingActions.toastRemoveSuccess'));
             } else {
-                alert('Nie udało się usunąć uczestnika');
+                toast(t('meetingDetails.meetingActions.toastRemoveFailure'));
             }
         } catch (err) {
-            alert('Wystąpił błąd podczas usuwania uczestnika');
+            toast(t('meetingDetails.meetingActions.toastRemoveError'));
+
         }
     };
 
@@ -36,11 +40,15 @@ const MeetingDetailsParticipantsList:FC<MeetingDetailsParticipantsListProps> = (
 
     return (
         <div className="card">
-            <h4 className="mb-2">👥 Uczestnicy ({participants.length})</h4>
+            <h4 className="mb-2">{t('meetingDetails.participantsCount',{
+            count: participants.length}
+            )}</h4>
 
             {participants.length === 0 ? (
                 <div className="text-center">
-                    <p className="text-muted">Brak uczestników. Bądź pierwszy!</p>
+                    <p className="text-muted">{
+                        t('meetingDetails.noParticipants')
+                    }</p>
                 </div>
             ) : (
                 <div className="participants-list">
@@ -50,9 +58,9 @@ const MeetingDetailsParticipantsList:FC<MeetingDetailsParticipantsListProps> = (
                             className={`participant-item ${participant.login === user?.login ? 'participant-current' : ''}`}
                         >
                 <span className="participant-name">
-                  {participant.login === user?.login && '👤 '}
+                  {participant.login === user?.login && t('meetingDetails.participantUser')}
                     {participant.login}
-                    {participant.login === user?.login && ' (To Ty)'}
+                    {participant.login === user?.login && t('meetingDetails.participantYou')}
                 </span>
 
                             {participant.login !== user?.login && (
@@ -60,7 +68,7 @@ const MeetingDetailsParticipantsList:FC<MeetingDetailsParticipantsListProps> = (
                                     onClick={() => handleRemoveParticipant(participant.login)}
                                     className="button button-danger button-small"
                                 >
-                                    ✖ Usuń
+                                    {t("meetingDetails.deleteParticipant")}
                                 </button>
                             )}
                         </div>

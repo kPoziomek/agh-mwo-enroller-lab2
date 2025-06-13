@@ -1,6 +1,8 @@
-import { useState } from "react";
+import {type ChangeEvent, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import { createMeeting } from '@/services/meetingService.ts';
+import toast from "react-hot-toast";
+import {useTranslation} from "react-i18next";
 
 export const NewMeetingForm = () => {
   const [formData, setFormData] = useState({
@@ -10,11 +12,12 @@ export const NewMeetingForm = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const {t} = useTranslation();
 
   const navigate = useNavigate();
 
   const handleInputChange = (
-    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = event.target;
     setFormData({
@@ -27,7 +30,7 @@ export const NewMeetingForm = () => {
     event.preventDefault();
     
     if (!formData.title.trim() || !formData.description.trim() || !formData.date.trim()) {
-      setError('Wszystkie pola są wymagane');
+      setError(t('newMeetingForm.error.emptyFields'));
       return;
     }
 
@@ -38,14 +41,13 @@ export const NewMeetingForm = () => {
       const newMeeting = await createMeeting(formData);
       
       if (newMeeting) {
-        alert('Spotkanie zostało utworzone pomyślnie!');
+        toast(t('newMeetingForm.toastSuccess'));
         navigate('/meetings');
       } else {
-        setError('Nie udało się utworzyć spotkania');
+        setError(t('newMeetingForm.toastFailure'));
       }
     } catch (err) {
-      console.error('Błąd podczas tworzenia spotkania:', err);
-      setError('Wystąpił błąd podczas tworzenia spotkania');
+      setError(t('newMeetingForm.error.unknownError'));
     } finally {
       setIsSubmitting(false);
     }
@@ -55,7 +57,9 @@ export const NewMeetingForm = () => {
     <div>
       <div className="row mb-2">
         <div className="column">
-          <h2 className="mb-0">➕ Dodaj nowe spotkanie</h2>
+          <h2 className="mb-0">
+            {t('newMeetingForm.title')}
+          </h2>
         </div>
         <div className="column column-33">
           <div className="text-center">
@@ -64,7 +68,7 @@ export const NewMeetingForm = () => {
               onClick={() => navigate('/meetings')}
               className="button button-outline"
             >
-              ← Anuluj
+              {t('newMeetingForm.cancel')}
             </button>
           </div>
         </div>
@@ -80,18 +84,22 @@ export const NewMeetingForm = () => {
         <form onSubmit={handleSubmit}>
           <fieldset disabled={isSubmitting}>
             
-            <label htmlFor="title">Nazwa spotkania</label>
+            <label htmlFor="title">
+              {t('newMeetingForm.name')}
+            </label>
             <input
               type="text"
               id="title"
               name="title"
               value={formData.title}
               onChange={handleInputChange}
-              placeholder="np. Spotkanie zespołu projektowego"
+              placeholder={t('newMeetingForm.namePlaceholder')}
               required
             />
 
-            <label htmlFor="date">Data spotkania</label>
+            <label htmlFor="date">
+                {t('newMeetingForm.date')}
+            </label>
             <input
               type="datetime-local"
               id="date"
@@ -101,14 +109,16 @@ export const NewMeetingForm = () => {
               required
             />
 
-            <label htmlFor="description">Opis spotkania</label>
+            <label htmlFor="description">
+                {t('newMeetingForm.description')}
+              </label>
             <textarea
               id="description"
               name="description"
               value={formData.description}
               onChange={handleInputChange}
               rows={5}
-              placeholder="Opisz cel spotkania, agenda, wymagania..."
+              placeholder={t('newMeetingForm.descriptionPlaceholder')}
               required
             />
 
@@ -117,7 +127,7 @@ export const NewMeetingForm = () => {
               className={`button ${isSubmitting ? 'button-outline' : 'button-success'}`}
               disabled={isSubmitting}
             >
-              {isSubmitting ? '⏳ Tworzenie spotkania...' : '✅ Utwórz spotkanie'}
+              {isSubmitting ? t("newMeetingForm.loadingButton") : t("newMeetingForm.addButton")}
             </button>
             
           </fieldset>
@@ -126,7 +136,8 @@ export const NewMeetingForm = () => {
 
       <div className="text-center mt-2">
         <p className="text-muted">
-          💡 <strong>Wskazówka:</strong> Dodaj szczegółowy opis, aby uczestnicy wiedzieli czego się spodziewać
+          💡 <strong>{t('newMeetingForm.hint')
+        }:</strong> {t('newMeetingForm.hintText')}
         </p>
       </div>
     </div>

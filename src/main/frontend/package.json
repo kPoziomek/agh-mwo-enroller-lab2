@@ -11,9 +11,14 @@
   },
   "dependencies": {
     "axios": "^1.9.0",
+    "i18next": "^25.2.1",
+    "i18next-browser-languagedetector": "^8.2.0",
+    "i18next-http-backend": "^3.0.2",
     "milligram": "^1.4.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-hot-toast": "^2.5.2",
+    "react-i18next": "^15.5.2",
     "react-router": "^7.6.0",
     "react-router-dom": "^7.6.0"
   },

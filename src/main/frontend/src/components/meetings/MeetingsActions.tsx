@@ -1,12 +1,13 @@
 import {useNavigate} from "react-router-dom";
 import type {FC} from "react";
 import type {Meeting} from "@/types/types.ts";
+import {useTranslation} from "react-i18next";
 interface MeetingsActionsProps {
     meetings: Meeting[]
 }
 const MeetingsActions:FC<MeetingsActionsProps> = ({meetings }) => {
     const navigate = useNavigate();
-
+    const {t} = useTranslation();
     const addMeeting = () => {
         navigate('/new-meeting');
     };
@@ -14,14 +15,14 @@ const MeetingsActions:FC<MeetingsActionsProps> = ({meetings }) => {
     return (
         <div className="row">
             <div className="column">
-                <h2 className="mb-0">📅 Spotkania ({meetings.length})</h2>
+                <h2 className="mb-0">{t('meetingsActions.title')}({meetings.length})</h2>
             </div>
             <div className="column column-33 text-center">
                 <button
                     onClick={addMeeting}
                     className="button button-success"
                 >
-                    Dodaj spotkanie
+                    {t('meetingsActions.addMeetingButton')}
                 </button>
             </div>
         </div>
